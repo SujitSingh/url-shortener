@@ -3,7 +3,7 @@ const nanoid = require('nanoid');
 const idCharLen = 11;
 
 const urlSchema = new mongoose.Schema({
-  id: mongoose.Schema.ObjectId,
+  // id: mongoose.Schema.ObjectId,
   fullUrl: { type: String, required: true },
   shortUrl: {
     type: String,
