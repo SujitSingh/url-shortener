@@ -3,7 +3,7 @@ const UrlModel = require('../models/url-model.js');
 module.exports = {
   async getAllUrls(req, res, next) {
     try {
-      const urlsData = await UrlModel.find({}, { _id:0, __v:0 });
+      const urlsData = await UrlModel.find({}, { __v:0 }).sort( { createdDate: -1 } );
       res.send(urlsData.map(item => {
         return item._doc;
       }));
@@ -21,8 +21,7 @@ module.exports = {
         urlData = await UrlModel.create({ fullUrl });
       }
       return res.send({
-        fullUrl: urlData._doc.fullUrl,
-        shortUrl: urlData._doc.shortUrl
+        ...urlData._doc
       });
     } catch (error) {
       next(error);

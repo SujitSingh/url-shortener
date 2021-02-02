@@ -37,19 +37,25 @@ function updateShorted(urlObj) {
 }
 
 function updateUrlsTable(urls) {
+  urlsTableBody.innerHTML = '';
+  let rows = '';
   for (let i = 0; i < urls.length; i++) {
+    const createdDate = new Date(urls[i].createdDate),
+          lastAccess = new Date(urls[i].lastAccessDate);
     try {
-      let row = `<tr>
+      rows += `<tr>
         <td>${i + 1}</td>
         <td><a href="/${urls[i].shortUrl}" target="_blank">${urls[i].shortUrl}</a></td>
         <td><a href="${urls[i].fullUrl}" target="_blank">${urls[i].fullUrl}</a></td>
         <td>${urls[i].clicks}</td>
+        <td>${createdDate.toLocaleDateString()}</td>
+        <td>${lastAccess.toLocaleDateString()}</td>
       </tr>`;
-      urlsTableBody.innerHTML += row;
     } catch (error) {
       console.log(error);
     }
   }
+  urlsTableBody.innerHTML = rows;
 }
 
 async function triggerCall(url, params) {
