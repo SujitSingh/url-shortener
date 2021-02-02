@@ -2,16 +2,18 @@ const updateElm = document.getElementById('updates');
 const urlsTableBody = document.querySelector('.urls tbody');
 
 async function shorUrl(form) {
-  const fullUrl = form['fullUrl'].value;
-  if (!fullUrl) { return; }
+  const fullUrlElm = form['fullUrl'];
+  const urlVal = fullUrlElm.value;
+  if (!urlVal) { return; }
   try {
     updateElm.classList.add('hide');
     const savedUrl = await triggerCall('/short', {
       method: 'POST',
-      body: JSON.stringify({ fullUrl })
+      body: JSON.stringify({ fullUrl: urlVal })
     });
     updateShorted(savedUrl);
     getAllUrls();
+    fullUrlElm.value = '';
   } catch (error) {
     console.log('Failed to fetch all URLs', error);
   }
@@ -21,6 +23,15 @@ async function getAllUrls() {
   try {
     const urls = await triggerCall('/urls');
     updateUrlsTable(urls);
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+async function deleteUrl(urlId) {
+  try {
+    const deleted = await triggerCall(`/remove/${urlId}`, { method: 'DELETE' });
+    getAllUrls();
   } catch (error) {
     console.log(error);
   }
@@ -46,7 +57,7 @@ function updateUrlsTable(urls) {
         <td>${i + 1}</td>
         <td><a href="/${urls[i].shortUrl}" target="_blank">${urls[i].shortUrl}</a></td>
         <td><a href="${urls[i].fullUrl}" target="_blank">${urls[i].fullUrl}</a></td>
-        <td>${urls[i].clicks}</td>
+        <td>${urls[i].clicks} <a href="javascript:void(0)" onclick="deleteUrl('${urls[i]._id}')" class="delete">X</a></td>
         <td>${createdDate.toLocaleDateString()}</td>
         <td>${lastAccess.toLocaleDateString()}</td>
       </tr>`;

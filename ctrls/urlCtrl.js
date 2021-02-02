@@ -43,11 +43,25 @@ class Urls {
       next(error);
     }
   };
+  removeUrl = async (req, res, next) => {
+    const urlId = req.params.urlId;
+    try {
+      if (!urlId) {
+        return res.redirect('/');
+      }
+      const deleted = await UrlModel.deleteOne({ _id: urlId });
+      res.send({
+        deleted: deleted.deletedCount ? true : false
+      });
+    } catch(error) {
+      next(error);
+    }
+  };
   updateUrlAccessCount = async (urlDataObj) => {
     urlDataObj.clicks++;
     urlDataObj.lastAccessDate = new Date();
     return urlDataObj.save();
-  }
+  };
 };
 
 const urlCtrl = new Urls();

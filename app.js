@@ -11,6 +11,7 @@ app.use(express.static('public'));
 app.get('/urls', urlCtrl.getAllUrls);
 app.post('/short', urlCtrl.shortUrl);
 app.get('/:shortUrl', urlCtrl.getFullUrl);
+app.delete('/remove/:urlId', urlCtrl.removeUrl);
 
 app.use((req, res, next) => {
   res.status(404).send({

@@ -86,3 +86,17 @@ table.urls thead tr {
 table.urls tr:nth-child(2n+2) {
   background-color: #e6f1ff;
 }
+
+a.delete {
+  width: 15px;
+  height: 15px;
+  display: inline-block;
+  text-align: center;
+  font-size: 10px;
+  line-height: 10px;
+  padding: 4px 0 0;
+  color: #fff !important;
+  background-color: red;
+  text-decoration: none;
+  border-radius: 50%;
+}
