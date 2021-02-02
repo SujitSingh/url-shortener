@@ -18,7 +18,6 @@ async function shorUrl(form) {
 }
 
 async function getAllUrls() {
-  console.log('triggered')
   try {
     const urls = await triggerCall('/urls');
     updateUrlsTable(urls);
@@ -69,4 +68,16 @@ async function processResponse(response) {
   const body = await response.json();
   if (!response.ok) { throw body }
   return body;
+}
+
+document.querySelector('body').addEventListener('click', handleAnchorClick);
+document.querySelector('body').addEventListener('auxclick', handleAnchorClick);
+
+function handleAnchorClick(e) {
+  const origin = window.location.origin;
+  const elm = e.target;
+  if (elm.tagName === 'A' && elm.origin === origin) {
+    setTimeout(getAllUrls, 1000);
+  }
+  return true;
 }
