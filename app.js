@@ -6,9 +6,11 @@ const urlCtrl = require('./ctrls/urlCtrl.js');
 const app = express();
 app.use(express.json());
 
+app.use(express.static('public'));
+
 app.get('/urls', urlCtrl.getAllUrls);
 app.post('/short', urlCtrl.shortUrl);
-app.get('/full-url/:shortUrl', urlCtrl.getFullUrl);
+app.get('/:shortUrl', urlCtrl.getFullUrl);
 
 app.use((req, res, next) => {
   res.status(404).send({
