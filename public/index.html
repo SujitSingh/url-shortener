@@ -7,7 +7,7 @@
   <link rel="stylesheet" href="./css/main.css">
 </head>
 <body>
-  <div class="form-container">
+  <div class="container">
     <form onsubmit="shorUrl(this); return false;" class="form-inline">
       <div class="input-group" style="flex: 1;">
         <label for="full-url">Full URL</label>
@@ -15,11 +15,25 @@
           <input type="text" id="full-url" name="fullUrl">
         </div>
       </div>
-      <div class="input-group" style="padding-top: 19px;">
+      <div class="input-group" style="padding: 19px 0 0 10px;">
         <button type="submit" class="btn btn-green">Short</button>
       </div>
     </form>
     <div id="updates"></div>
+  </div>
+
+  <div class="container">
+    <table class="urls">
+      <thead>
+        <tr>
+          <th>Sl.no.</th>
+          <th>Short URL</th>
+          <th>Full URL</th>
+          <th>Clicks</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
   </div>
 
   <script src="./js/index.js" defer></script>
